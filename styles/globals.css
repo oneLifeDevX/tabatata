@@ -2,26 +2,134 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.text-shadow-white {
+  text-shadow: 0 5px 15px rgba(255, 255, 255);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+  cursor: none;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.speaker-icon {
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  max-width: 25px;
+  max-height: 25px;
 }
+
+
+.switch-button {
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  background-color: #bebebe;
+  border-radius: 15px;
+  position: relative;
+}
+
+.switch-button .toggle {
+  width: 24px;
+  height: 24px;
+  background-color: #2683ee;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.switch-button .toggle.on {
+  transform: translateX(30px);
+  background-color: #1138e7;
+}
+
+.switch-button .toggle.off {
+  transform: translateX(0);
+  background-color: #5874f0;
+}
+
+
+.switch-button.enabled .slider {
+  transform: translateX(20px);
+}
+
+a:hover {
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  z-index: 9999999999;
+  will-change: z-index;
+  background-image: url("../public/cursor.gif");
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.border-greek {
+  border-width: 25px
+
+30px 24.6px 18px;
+  margin: -25px -30px -24.6px -18px;
+  -o-border-image: url(../public/border-greek.svg) 5.3% 6.6% 5.7% 4.4% repeat;
+  border-image: url(../public/border-greek.svg) 5.3% 6.6% 5.7% 4.4% repeat;
+}
+
+.border-greekv2 {
+  border-width: 25px
+
+30px 24.6px 18px;
+  margin: -50px -60px -50px -38px;
+  -o-border-image: url(../public/border-greek.svg) 5.3% 6.6% 5.7% 4.4% repeat;
+  border-image: url(../public/border-greek.svg) 5.3% 6.6% 5.7% 4.4% repeat;
+}
+
+
+.bg-button, .bg-button-inverse {
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    background: rgb(0 0 0 / 47%);
+}
+
+.bg-lueur-wide {
+  background-image: radial-gradient(88.15% 153.5% at 52.77% -53.5%, rgba(0, 46, 253, 0.51) 0%, rgba(214, 210, 210, 0) 100%);
+}
+
+.lueur-hover {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.lueur-hover:hover {
+  box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.5);
+}
+
+
+.overlay:hover {
+  opacity: 1;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.1);
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
