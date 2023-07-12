@@ -1,17 +1,79 @@
 // import React from "react";
+import { ethers } from "ethers";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Howl, Howler } from 'howler';
+import contractABI from "../constants/data.json";
+import tokenABI from "../constants/tokenabi.json";
+import { UseContractReadConfig, UseContractWriteConfig, UsePrepareContractWriteConfig, useContractRead,  useAccount,
+  useConnect,
+  useContract, useSigner, usePrepareContractWrite, useContractWrite} from "wagmi";
 
-
+  
+  
 
 const DappFirstSection = () => {
+
+
+  const { data: balanceOf, isLoading, isSuccess: useBalanceOf } = useContractRead({
+    address: "0xc3FC8B222a22CE10d8161b457dE4B1AeeA748350",
+    abi: tokenABI.abi,
+    functionName: 'balanceOf',
+    args: ['0x1D3F109024071Cbe9103F4bDAf7BbfA36271E579'],
+  })
+
+  const { data: getartifactsByIds } = useContractRead({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'getartifactsByIds',
+    args: [[1]],
+  })
+
+  
+
+  const { data: compoundDelay, isSuccess: compoundOk } = useContractRead({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'compoundDelay',
+  })
+
+  const { data: symbol } = useContractRead({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'symbol',
+  })
+
+  
+  const balanceValue = balanceOf ? ethers.BigNumber.from(balanceOf) : ethers.BigNumber.from(0);
+  const formattedBalance = ethers.utils.formatUnits(balanceValue, 18);
+
+  const compoundDelayValue = compoundDelay ? ethers.BigNumber.from(compoundDelay) : ethers.BigNumber.from(0);
+  const compoundDelayInSeconds = compoundDelayValue.toNumber();
+
+  const formattedCompoundDelay = compoundDelayInSeconds
+    ? new Date(compoundDelayInSeconds * 1000).toISOString().substr(11, 8)
+    : "";
+
+
+
+
+  const { config } = usePrepareContractWrite({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: "pause"
+  })
+
+  const { data: useContractWriteData } = useContractWrite(config)
+
+
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init();
     }
+      console.log(getartifactsByIds);
   }, []);
 
   const hoversound = new Howl({
@@ -28,8 +90,10 @@ const DappFirstSection = () => {
   };
   
 
-  
+
   return (
+
+    
     <div className="justify-center items-center relative">
       <div className="w-full pt-8 lg:pt-32 pb-2 px-4 lg:px-10 text-white flex justify-center items-center flex-col "></div>
       <div
@@ -116,7 +180,7 @@ const DappFirstSection = () => {
             <p className="text-white mb-4">Compound left: 2</p>
             <p className="text-white mb-4">Token Locked: 85000 CRIOS</p>
             <p className="text-white mb-4">Time before compound:</p>
-            <p className="text-white mb-4">07:59:59</p>
+            <p className="text-white mb-4">{formattedCompoundDelay}</p>
             <a href="" className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
               Claim
@@ -252,7 +316,7 @@ const DappFirstSection = () => {
           My Balance
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         590 000 CRIOS
+         {formattedBalance} {symbol}
         </h1>
 
   </div>

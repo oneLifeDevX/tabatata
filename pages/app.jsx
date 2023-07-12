@@ -13,6 +13,7 @@ import DappFirstSection from "../dappcomponents/DappFirstSection.jsx";
 export default function App() {
 
 
+
   return (
     <div className="flex flex-col w-full min-h-screen font-sans bg-bg2 bg-cover ">
       <CustomCursor />
