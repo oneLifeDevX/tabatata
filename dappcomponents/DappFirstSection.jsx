@@ -16,7 +16,7 @@ import { UseContractReadConfig, UseContractWriteConfig, UsePrepareContractWriteC
 
 const DappFirstSection = () => {
 
-
+  const {address} = useAccount();
   const { data: balanceOf, isLoading, isSuccess: useBalanceOf } = useContractRead({
     address: "0xc3FC8B222a22CE10d8161b457dE4B1AeeA748350",
     abi: tokenABI.abi,
@@ -24,14 +24,28 @@ const DappFirstSection = () => {
     args: ['0x1D3F109024071Cbe9103F4bDAf7BbfA36271E579'],
   })
 
-  const { data: getartifactsByIds } = useContractRead({
+  const { data: getArtifactIdsOf } = useContractRead({
     address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
     abi: contractABI.abi,
-    functionName: 'getartifactsByIds',
-    args: [[1]],
+    functionName: 'getArtifactIdsOf',
+    args: [address],
   })
 
+  const artifactIds = getArtifactIdsOf || []; // Assurez-vous que getArtifactIdsOf est un tableau ou un tableau vide par défaut
+
   
+  
+  const { data: getartifactsByIds } = useContractRead({
+      address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+      abi: contractABI.abi,
+      functionName: 'getartifactsByIds',
+      args: [artifactIds],
+    });
+  
+
+   
+    const artifacts = getartifactsByIds || [];
+
 
   const { data: compoundDelay, isSuccess: compoundOk } = useContractRead({
     address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
@@ -73,7 +87,8 @@ const DappFirstSection = () => {
     if (typeof window !== 'undefined') {
       AOS.init();
     }
-      console.log(getartifactsByIds);
+    console.log(getArtifactIdsOf);
+    console.log(getartifactsByIds);
   }, []);
 
   const hoversound = new Howl({
@@ -105,7 +120,7 @@ const DappFirstSection = () => {
             Overview
           </h1>
           <div data-aos="fade-right" className="border-greek 3xl:mb-8 text-center xl:text-left">
-  <div className="p-4 lg:p-10 bg-black/[0.8]">
+  <div className="p-4 lg:p-10 bg-black/[0.6]">
   <div className="grid gap-6 grid-cols-2">
   <div className="h-full bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
   <h1 className="font-bold text-[20px] text-white leading-[15px] w-full text-shadow-white text-center items-center">
@@ -165,7 +180,7 @@ const DappFirstSection = () => {
           </h1>
           <div className="flex flex-col min-h-screen">
             <div data-aos="fade-left" className="border-greekv2 w-11/12 absolute left-28 my-8 ">
-              <div className="p-4 lg:p-10 bg-black/[0.8] flex flex-col xl:flex-row w-full">
+              <div className="p-4 lg:p-10 bg-black/[0.6] flex flex-col xl:flex-row w-full">
                 
               
               <div className="p-4 lg:p-10 bg-black border w-8/12">
@@ -175,12 +190,15 @@ const DappFirstSection = () => {
         <div className="relative">
           <img src="testnft.png" className="w-full h-auto border" />
           <div className="overlay absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
-            <h3 className="text-white text-xl font-bold mb-2">NFT NAME</h3>
+          <h1>Noms des artefacts :</h1>
+          {artifacts.map((artifact, index) => (
+      <p key={index}>Nom de l'artefact {index + 1} : {artifact.artifact.name}</p>
+          ))}
             <p className="text-white mb-4">Pending rewards: 5959 CRIOS</p>
             <p className="text-white mb-4">Compound left: 2</p>
             <p className="text-white mb-4">Token Locked: 85000 CRIOS</p>
             <p className="text-white mb-4">Time before compound:</p>
-            <p className="text-white mb-4">{formattedCompoundDelay}</p>
+            {/* <p className="text-white mb-4">{formattedCompoundDelay}</p> */}
             <a href="" className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
               Claim
