@@ -1,5 +1,6 @@
 // import React from "react";
 import { ethers } from "ethers";
+import { utils } from 'web3';
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -17,6 +18,36 @@ import { UseContractReadConfig, UseContractWriteConfig, UsePrepareContractWriteC
 const DappFirstSection = () => {
 
   const {address} = useAccount();
+  const { data: totalSupply } = useContractRead({
+    address: "0xc3FC8B222a22CE10d8161b457dE4B1AeeA748350",
+    abi: tokenABI.abi,
+    functionName: 'totalSupply',
+  })
+
+  const { data: totalSupplyNFT } = useContractRead({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'totalSupply',
+  })
+
+  const { data: totalValueLocked } = useContractRead({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'totalValueLocked',
+  })
+
+  const { data: getBurnedFromServiceFees } = useContractRead({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'getBurnedFromServiceFees',
+  })
+
+  const { data: calculateTotalDailyEmission } = useContractRead({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'calculateTotalDailyEmission',
+  })
+
   const { data: balanceOf, isLoading, isSuccess: useBalanceOf } = useContractRead({
     address: "0xc3FC8B222a22CE10d8161b457dE4B1AeeA748350",
     abi: tokenABI.abi,
@@ -31,7 +62,7 @@ const DappFirstSection = () => {
     args: [address],
   })
 
-  const artifactIds = getArtifactIdsOf || []; // Assurez-vous que getArtifactIdsOf est un tableau ou un tableau vide par défaut
+  const artifactIds = getArtifactIdsOf || []; 
 
   
   
@@ -60,6 +91,22 @@ const DappFirstSection = () => {
   })
 
   
+
+  const totalSupplyNFTValue = totalSupplyNFT ? ethers.BigNumber.from(totalSupplyNFT) : ethers.BigNumber.from(0);
+  const formattedtotalSupplyNFT = ethers.utils.formatUnits(totalSupplyNFTValue, 0);
+
+  const calculateTotalDailyEmissionValue = calculateTotalDailyEmission ? ethers.BigNumber.from(calculateTotalDailyEmission) : ethers.BigNumber.from(0);
+  const formattedcalculateTotalDailyEmission = ethers.utils.formatUnits(calculateTotalDailyEmissionValue, 18);
+
+  const getBurnedFromServiceFeesValue = getBurnedFromServiceFees ? ethers.BigNumber.from(getBurnedFromServiceFees) : ethers.BigNumber.from(0);
+  const formattedgetBurnedFromServiceFees = ethers.utils.formatUnits(getBurnedFromServiceFeesValue, 18);
+
+  const totalValueLockedValue = totalValueLocked ? ethers.BigNumber.from(totalValueLocked) : ethers.BigNumber.from(0);
+  const formattedtotalValueLocked = ethers.utils.formatUnits(totalValueLockedValue, 18);
+
+  const totalSupplyValue = totalSupply ? ethers.BigNumber.from(totalSupply) : ethers.BigNumber.from(0);
+  const formattedtotalSupply = ethers.utils.formatUnits(totalSupplyValue, 18);
+
   const balanceValue = balanceOf ? ethers.BigNumber.from(balanceOf) : ethers.BigNumber.from(0);
   const formattedBalance = ethers.utils.formatUnits(balanceValue, 18);
 
@@ -127,8 +174,7 @@ const DappFirstSection = () => {
           Current Circulating Supply
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         569 000 CRIOS
-        </h1>
+         {formattedtotalSupply} CRIOS</h1>
   </div>
   <div className="h-full bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
   <h1 className="font-bold text-[20px] text-white leading-[15px] w-full text-shadow-white text-center items-center">
@@ -143,7 +189,7 @@ const DappFirstSection = () => {
           Total NFT Mint
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         4600
+       {formattedtotalSupplyNFT}
         </h1>
   </div>
   <div className="h-full bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
@@ -151,7 +197,7 @@ const DappFirstSection = () => {
           Total Token Locked
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         410 000 CRIOS
+         {formattedtotalValueLocked}
         </h1>
   </div>
   <div className="h-full bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
@@ -159,7 +205,7 @@ const DappFirstSection = () => {
           Total emission per day
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         590 000 CRIOS
+         {formattedcalculateTotalDailyEmission} CRIOS
         </h1>
 
   </div>
@@ -168,12 +214,23 @@ const DappFirstSection = () => {
           Burned from services fees
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         120 000 CRIOS
+         {formattedgetBurnedFromServiceFees} CRIOS
         </h1>
   </div>
 </div>
   </div>
 </div>
+
+{/* <div>
+      {getartifactsByIds.map((artifacts, index) => (
+        <div key={index}>
+          <img src={`image-${artifacts.id}.png`} alt={`NFT ${artifacts.id}`} 
+          className="w-full h-auto border" />
+          <h1>{artifacts.artifact.name}</h1>
+        </div>
+      ))}
+    </div> */}
+
 
             <h1 className="flex-1 font-semibold text-[42px] text-white text-shadow-white leading-[75px] text-center items-center">
             My Stats
@@ -186,32 +243,52 @@ const DappFirstSection = () => {
               <div className="p-4 lg:p-10 bg-black border w-8/12">
   <div className="overflow-x-auto scrollbar-hide" style={{ height: "400px" }}>
     <div className="flex flex-wrap">
-      <div className="w-1/3 p-4">
-        <div className="relative">
-          <img src="testnft.png" className="w-full h-auto border" />
-          <div className="overlay absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
-          <h1>Noms des artefacts :</h1>
-          {artifacts.map((artifact, index) => (
-      <p key={index}>Nom de l'artefact {index + 1} : {artifact.artifact.name}</p>
-          ))}
-            <p className="text-white mb-4">Pending rewards: 5959 CRIOS</p>
-            <p className="text-white mb-4">Compound left: 2</p>
-            <p className="text-white mb-4">Token Locked: 85000 CRIOS</p>
-            <p className="text-white mb-4">Time before compound:</p>
-            {/* <p className="text-white mb-4">{formattedCompoundDelay}</p> */}
-            <a href="" className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}>
-              Claim
-            </a>
-            <a href="" className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}>
-              Compound
-            </a>
+      <div className="w-full">
+        <div className="grid grid-cols-4 gap-4">
+    {getartifactsByIds &&
+      getartifactsByIds.map((artifacts, index) => (
+        <div key={index} className="col-span-1">
+          <div className="relative">
+            <img
+              src={`image-${artifacts.id}.png`}
+              className="w-full h-auto border"
+              alt={`NFT ${artifacts.id}`}
+            />
+            <div className="overlay absolute top-0 left-0 w-full h-auto bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
+              <h3 className="text-white text-xl font-bold mb-2">
+                {artifacts.artifact.name}
+              </h3>
+              <p className="text-white mb-2">Pending Rewards :{artifacts.pendingRewards ? utils.fromWei(artifacts.pendingRewards.toString(), 'ether') : ''}</p>
+              <p className="text-white mb-2">Compound left: 2</p>
+              <p className="text-white mb-2">Token Locked: 85000 CRIOS</p>
+              <p className="text-white mb-2">Time before compound:</p>
+              <p className="text-white mb-2">07:59:59</p>
+              <a
+                href=""
+                className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                Claim
+              </a>
+              <a
+                href=""
+                className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                Compound
+              </a>
+              
+            </div>
           </div>
         </div>
+      ))}
+  </div>
+        
       </div>
 
-      <div className="w-1/3 p-4">
+      {/* <div className="w-1/3 p-4">
         <div className="relative">
           <img src="testnft.png" className="w-full h-auto border" />
           <div className="overlay absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
@@ -275,7 +352,7 @@ const DappFirstSection = () => {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
 
       
     </div>
