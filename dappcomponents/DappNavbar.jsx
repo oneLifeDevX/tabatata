@@ -105,7 +105,7 @@ const DappNavbar = () => {
         </div>  
         <a
                       href="https://app.prometheusprotocol.finance/invest"
-                      className="ml-4 px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+                      className="left-40 px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
                       BUY CRIOS
@@ -113,7 +113,7 @@ const DappNavbar = () => {
         <ConnectButton/>
         
         
-        <div className="absolute right-52 mt-2">
+        <div className="absolute right-72 mt-2">
         <SwitchButton isOn={isPlaying} onToggle={handleTogglePlay} />
         </div>
       </nav>

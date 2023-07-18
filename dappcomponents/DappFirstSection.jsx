@@ -1,10 +1,11 @@
-// import React from "react";
+import dynamic from 'next/dynamic'
 import { ethers } from "ethers";
 import { utils } from 'web3';
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import React, { useState, useEffect } from 'react';
+import Modal from 'react-modal';
 import { Howl, Howler } from 'howler';
 import contractABI from "../constants/data.json";
 import tokenABI from "../constants/tokenabi.json";
@@ -12,10 +13,19 @@ import { UseContractReadConfig, UseContractWriteConfig, UsePrepareContractWriteC
   useConnect,
   useContract, useSigner, usePrepareContractWrite, useContractWrite} from "wagmi";
 
+  function formatSeconds(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+  
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  }
   
   
 
 const DappFirstSection = () => {
+
+  const [remainingTime, setRemainingTime] = useState(""); // Step 2
 
   const {address} = useAccount();
   const { data: totalSupply } = useContractRead({
@@ -48,11 +58,28 @@ const DappFirstSection = () => {
     functionName: 'calculateTotalDailyEmission',
   })
 
+  const { data: isNameAvailable } = useContractRead({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'isNameAvailable',
+    args: [address],
+  })
+
+
+  const { data: createArtifactWithTokens, write } = useContractWrite({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: "createArtifactWithTokens",
+    args: [],
+  });
+
+
+
   const { data: balanceOf, isLoading, isSuccess: useBalanceOf } = useContractRead({
     address: "0xc3FC8B222a22CE10d8161b457dE4B1AeeA748350",
     abi: tokenABI.abi,
     functionName: 'balanceOf',
-    args: ['0x1D3F109024071Cbe9103F4bDAf7BbfA36271E579'],
+    args: [address],
   })
 
   const { data: getArtifactIdsOf } = useContractRead({
@@ -112,13 +139,29 @@ const DappFirstSection = () => {
 
   const compoundDelayValue = compoundDelay ? ethers.BigNumber.from(compoundDelay) : ethers.BigNumber.from(0);
   const compoundDelayInSeconds = compoundDelayValue.toNumber();
-
   const formattedCompoundDelay = compoundDelayInSeconds
     ? new Date(compoundDelayInSeconds * 1000).toISOString().substr(11, 8)
     : "";
 
-
-
+  
+    function timeBeforeCompounds() {
+      for (let i = 0; i < getArtifactIdsOf.length; i++) {
+        const timestamp = Number(getartifactsByIds[i].artifact.lastProcessingTimestamp) + compoundDelayInSeconds;
+        const currentTime = Date.now();
+  
+        // Calculate remaining time
+        const remainingTimeInMillis = timestamp * 1000 - currentTime;
+        const remainingSeconds = Math.ceil(remainingTimeInMillis / 1000);
+        const formattedRemainingTime = formatSeconds(remainingSeconds);
+  
+        if (remainingSeconds < 0) {
+          return "00:00:00";
+        } else {
+          return formattedRemainingTime;
+        }
+      }
+    }
+  
 
   const { config } = usePrepareContractWrite({
     address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
@@ -129,14 +172,53 @@ const DappFirstSection = () => {
   const { data: useContractWriteData } = useContractWrite(config)
 
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [nftName, setNftName] = useState('');
+  const [tokenAmount, setTokenAmount] = useState('');
+  
+
+  const openModal = (e) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  
+  const handleButtonClick = (value) => {
+    if (value === 'MAX_VALUE') {
+      setTokenAmount(formattedBalance);
+      console.log(value);
+    } else {
+      console.log(value);
+      setTokenAmount(value);
+    }
+  };
+
+  const handleMintButtonClick = () => {
+    // Parse tokenAmount to uint256 (assuming it is a valid positive integer)
+    const artifactValue = parseInt(tokenAmount, 10);
+  
+    // Call createArtifactWithTokens function with the input values
+    createArtifactWithTokens(nftName, artifactValue);
+  
+    // Close the modal after minting
+    closeModal();
+  };
+  
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init();
     }
-    console.log(getArtifactIdsOf);
-    console.log(getartifactsByIds);
-  }, []);
+    const interval = setInterval(() => {
+      const remainingTime = timeBeforeCompounds();
+      setRemainingTime(remainingTime);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [getArtifactIdsOf]);
 
   const hoversound = new Howl({
     src: ['button.mp3'],
@@ -150,12 +232,11 @@ const DappFirstSection = () => {
   const handleMouseLeave = () => {
     hoversound.stop();
   };
-  
 
 
   return (
 
-    
+      
     <div className="justify-center items-center relative">
       <div className="w-full pt-8 lg:pt-32 pb-2 px-4 lg:px-10 text-white flex justify-center items-center flex-col "></div>
       <div
@@ -220,18 +301,6 @@ const DappFirstSection = () => {
 </div>
   </div>
 </div>
-
-{/* <div>
-      {getartifactsByIds.map((artifacts, index) => (
-        <div key={index}>
-          <img src={`image-${artifacts.id}.png`} alt={`NFT ${artifacts.id}`} 
-          className="w-full h-auto border" />
-          <h1>{artifacts.artifact.name}</h1>
-        </div>
-      ))}
-    </div> */}
-
-
             <h1 className="flex-1 font-semibold text-[42px] text-white text-shadow-white leading-[75px] text-center items-center">
             My Stats
           </h1>
@@ -258,11 +327,11 @@ const DappFirstSection = () => {
               <h3 className="text-white text-xl font-bold mb-2">
                 {artifacts.artifact.name}
               </h3>
-              <p className="text-white mb-2">Pending Rewards :{artifacts.pendingRewards ? utils.fromWei(artifacts.pendingRewards.toString(), 'ether') : ''}</p>
+              <p className="text-white mb-2">Pending Rewards : {artifacts.pendingRewards ? utils.fromWei(artifacts.pendingRewards.toString(), 'ether') : ''}</p>
               <p className="text-white mb-2">Compound left: 2</p>
-              <p className="text-white mb-2">Token Locked: 85000 CRIOS</p>
-              <p className="text-white mb-2">Time before compound:</p>
-              <p className="text-white mb-2">07:59:59</p>
+              <p className="text-white mb-2">Token Locked: {artifacts.artifact.artifactValue ? utils.fromWei(artifacts.artifact.artifactValue.toString(), 'ether') : ''}</p>
+              <p>{remainingTime}</p>
+              
               <a
                 href=""
                 className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
@@ -359,9 +428,67 @@ const DappFirstSection = () => {
   </div>
   <div className="flex justify-between p-4">
   <a href="" className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}>
+                      onMouseLeave={handleMouseLeave} onClick={openModal}>
               Mint (+)
             </a>
+            <Modal
+  isOpen={isModalOpen}
+  onRequestClose={closeModal}
+  contentLabel="NFT Modal"
+  className="bg-black border bg-opacity-50 p-4 rounded-lg"
+  overlayClassName="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50"
+>
+  
+  <h2 className='text-white'>NFT Information</h2>
+  <form>
+    <label className='mb-6 text-white'>
+      NFT Name:
+      <input
+        className='flex opacity-75 text-black'
+        type="text"
+        value={nftName}
+        onChange={(e) => setNftName(e.target.value)}
+      />
+    </label>
+    <br />
+    <label className='text-white'>
+      Token Amount:
+      <div className="flex items-end">
+  <input
+    className="mb-2 opacity-75 py-2 px-4 border-2 text-black"
+    type="text"
+    value={tokenAmount}
+    onChange={(e) => setTokenAmount(e.target.value)}
+  />
+  <div className="inline-flex flex-col">
+    <button
+      type="button"
+      className="ml-1 mt-2 px-2 py-1 font-bold border-2 text-black text-xs bg-gray-100 hover:bg-gray-200"
+      onClick={() => handleButtonClick('42000')}
+    >
+      Min
+    </button>
+    <button
+    type="button"
+      className="ml-1 mt-2 px-2 py-1 font-bold border-2 text-black text-xs bg-gray-100 hover:bg-gray-200"
+      onClick={() => handleButtonClick('MAX_VALUE')}
+    >
+      Max
+    </button>
+  </div>
+</div>
+
+
+    </label>
+    <br />
+    <div className="grid grid-cols-2 gap-4">
+    <button type="button" className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave} onClick={() => handleMintButtonClick()}>Mint (+)</button>
+    <button className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave} onClick={closeModal}>Close</button>
+</div>
+  </form>
+</Modal>
             <a href="" className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
               Compound All
@@ -402,7 +529,7 @@ const DappFirstSection = () => {
           Time left before compound all
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         7:59:59
+         
         </h1>
 
   </div>
@@ -426,8 +553,10 @@ const DappFirstSection = () => {
           </div>
         </div>
       </div>
+
     </div>
+    
   );
 };
-
-export default DappFirstSection;
+export default dynamic (() => Promise.resolve(DappFirstSection),{ssr: false})
+// export default DappFirstSection;
