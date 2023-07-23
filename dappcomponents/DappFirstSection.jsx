@@ -26,7 +26,7 @@ const DappFirstSection = () => {
 
   const [remainingTime, setRemainingTime] = useState(""); // Step 2
 
-  const {address} = useAccount();
+  const {address, isConnecting, isDisconected} = useAccount();
   const { data: totalSupply } = useContractRead({
     address: "0xc3FC8B222a22CE10d8161b457dE4B1AeeA748350",
     abi: tokenABI.abi,
@@ -76,7 +76,6 @@ const DappFirstSection = () => {
   const artifactIds = getArtifactIdsOf || []; 
 
   
-  
   const { data: getartifactsByIds } = useContractRead({
       address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
       abi: contractABI.abi,
@@ -108,10 +107,31 @@ const DappFirstSection = () => {
     args: [],
   });
 
+  const {data: compoundRewardAll ,write: compoundAllNoFees } = useContractWrite({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'compoundAllNoFees',
+    args: [],
+  });
+
+  const {data: compoundReward ,write: compoundRewardNoFees } = useContractWrite({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'compoundRewardNoFees',
+    args: [],
+  });
+
   const {data: cashoutAllNoFees ,write: cashoutAll } = useContractWrite({
     address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
     abi: contractABI.abi,
     functionName: 'cashoutAllNoFees',
+  });
+
+  const {data: cashoutRewardNoFees ,write: cashout } = useContractWrite({
+    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    abi: contractABI.abi,
+    functionName: 'cashoutRewardNoFees',
+    args: [],
   });
 
   
@@ -121,18 +141,27 @@ const DappFirstSection = () => {
 
   const calculateTotalDailyEmissionValue = calculateTotalDailyEmission ? ethers.BigNumber.from(calculateTotalDailyEmission) : ethers.BigNumber.from(0);
   const formattedcalculateTotalDailyEmission = ethers.utils.formatUnits(calculateTotalDailyEmissionValue, 18);
+  const roundedcalculateTotalDailyEmission = Number(formattedcalculateTotalDailyEmission).toFixed(2);
+
 
   const getBurnedFromServiceFeesValue = getBurnedFromServiceFees ? ethers.BigNumber.from(getBurnedFromServiceFees) : ethers.BigNumber.from(0);
   const formattedgetBurnedFromServiceFees = ethers.utils.formatUnits(getBurnedFromServiceFeesValue, 18);
+  const roundedgetBurnedFromServiceFees = Number(formattedgetBurnedFromServiceFees).toFixed(2);
 
   const totalValueLockedValue = totalValueLocked ? ethers.BigNumber.from(totalValueLocked) : ethers.BigNumber.from(0);
   const formattedtotalValueLocked = ethers.utils.formatUnits(totalValueLockedValue, 18);
+  const roundedtotalValueLocked = Number(formattedtotalValueLocked).toFixed(2);
+
 
   const totalSupplyValue = totalSupply ? ethers.BigNumber.from(totalSupply) : ethers.BigNumber.from(0);
   const formattedtotalSupply = ethers.utils.formatUnits(totalSupplyValue, 18);
+  const roundedtotalSupply = Number(formattedtotalSupply).toFixed(2);
+
 
   const balanceValue = balanceOf ? ethers.BigNumber.from(balanceOf) : ethers.BigNumber.from(0);
   const formattedBalance = ethers.utils.formatUnits(balanceValue, 18);
+  const roundedBalance = Number(formattedBalance).toFixed(2);
+
 
   const compoundDelayValue = compoundDelay ? ethers.BigNumber.from(compoundDelay) : ethers.BigNumber.from(0);
   const compoundDelayInSeconds = compoundDelayValue.toNumber();
@@ -140,7 +169,7 @@ const DappFirstSection = () => {
     ? new Date(compoundDelayInSeconds * 1000).toISOString().substr(11, 8)
     : "";
 
-  
+    
     function timeBeforeCompounds() {
       const remainingTimes = [];
       const currentTime = Math.floor(Date.now() / 1000); // Convertir en secondes
@@ -155,9 +184,10 @@ const DappFirstSection = () => {
       }
       return remainingTimes;
     }
+  
     
     function calculateMaxTimeBeforeCompound() {
-      let maxTimeBeforeCompound = -1; // Initialisez la valeur à une valeur négative pour trouver le maximum
+      let maxTimeBeforeCompound = 0; // Initialisez la valeur à une valeur négative pour trouver le maximum
     
       for (let i = 0; i < artifacts.length; i++) {
         const timestamp = Number(artifacts[i].artifact.lastProcessingTimestamp) + compoundDelayInSeconds;
@@ -192,6 +222,8 @@ const DappFirstSection = () => {
     }
     
     const totalPendingRewards = calculateTotalPendingRewards(); // Appel de la nouvelle fonction pour obtenir le total des "Pending Rewards"
+    const roundedtotalPendingRewards = Number(totalPendingRewards).toFixed(2);
+
     
     function calculateEstimatedDailyRewards() {
       let totalEstimatedDailyRewards = 0;
@@ -206,6 +238,7 @@ const DappFirstSection = () => {
     }
     
     const totalEstimatedDailyRewards = calculateEstimatedDailyRewards(); // Appel de la nouvelle fonction pour obtenir le total des "Pending Rewards"
+    const roundedtotalEstimatedDailyRewards = Number(totalEstimatedDailyRewards).toFixed(2);
     
 
     
@@ -224,8 +257,6 @@ const DappFirstSection = () => {
   const [nftName, setNftName] = useState('');
   const [tokenAmount, setTokenAmount] = useState('');
   
-  
-
 
   const openModal = (e) => {
     e.preventDefault();
@@ -250,12 +281,15 @@ const DappFirstSection = () => {
     if (typeof window !== 'undefined') {
       AOS.init();
     }
+    
     const interval = setInterval(() => {
       const remainingTime = timeBeforeCompounds();
       setRemainingTime(remainingTime);
     }, 1000);
 
     return () => clearInterval(interval);
+  
+    
   }, [getArtifactIdsOf]);
 
   const hoversound = new Howl({
@@ -291,7 +325,7 @@ const DappFirstSection = () => {
           Current Circulating Supply
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         {formattedtotalSupply} CRIOS</h1>
+         {roundedtotalSupply} CRIOS</h1>
   </div>
   <div className="h-full bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
   <h1 className="font-bold text-[20px] text-white leading-[15px] w-full text-shadow-white text-center items-center">
@@ -315,7 +349,7 @@ const DappFirstSection = () => {
           Total Token Locked
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         {formattedtotalValueLocked}
+         {roundedtotalValueLocked}
         </h1>
   </div>
   <div className="h-full bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
@@ -323,7 +357,7 @@ const DappFirstSection = () => {
           Total emission per day
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         {formattedcalculateTotalDailyEmission} CRIOS
+         {roundedcalculateTotalDailyEmission} CRIOS
         </h1>
 
   </div>
@@ -332,7 +366,7 @@ const DappFirstSection = () => {
           Burned from services fees
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         {formattedgetBurnedFromServiceFees} CRIOS
+         {roundedgetBurnedFromServiceFees} CRIOS
         </h1>
   </div>
 </div>
@@ -360,28 +394,29 @@ const DappFirstSection = () => {
               className="w-full h-auto border"
               alt={`NFT ${artifacts.id}`}
             />
-            <div className="overlay absolute top-0 left-0 w-full h-auto bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
+            <div className="overlay absolute top-0 left-0 w-full h-auto bg-cover bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
               <h3 className="text-white text-xl font-bold mb-2">
                 {artifacts.artifact.name}
               </h3>
-              <p className="text-white mb-2">Pending Rewards : {artifacts.pendingRewards ? utils.fromWei(artifacts.pendingRewards.toString(), 'ether') : ''}</p>
+              <p className="text-white mb-2">Pending Rewards : {artifacts.pendingRewards ? parseFloat(utils.fromWei(artifacts.pendingRewards.toString(), 'ether')).toFixed(2) : ''}</p>
               <p className="text-white mb-2">Compound left: 2</p>
-              <p className="text-white mb-2">Token Locked: {artifacts.artifact.artifactValue ? utils.fromWei(artifacts.artifact.artifactValue.toString(), 'ether') : ''}</p>
+              <p className="text-white mb-2">Token Locked: {artifacts.artifact.artifactValue ? parseFloat(utils.fromWei(artifacts.artifact.artifactValue.toString(), 'ether')).toFixed(2) : ''}</p>
               <p>{timeBeforeCompounds()[index]}</p>
               
               <a
-                href=""
+                
                 className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                onClick={() => cashout({ args: [artifacts.id]})}
               >
                 Claim
               </a>
               <a
-                href=""
                 className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                onClick={() => compoundRewardNoFees({ args: [artifacts.id]})}
               >
                 Compound
               </a>
@@ -394,10 +429,7 @@ const DappFirstSection = () => {
     </div>
   </div>
   <div className="flex justify-between p-4">
-  <a href="" className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave} onClick={openModal}>
-              Mint (+)
-            </a>
+
             <Modal
   isOpen={isModalOpen}
   onRequestClose={closeModal}
@@ -453,11 +485,11 @@ const DappFirstSection = () => {
 </div>
   </form>
 </Modal>
-            <a href="" className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}>
+            <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave} onClick={() => compoundAllNoFees()}>
               Compound All
             </a>
-            <a href="" className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+            <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave} onClick={() => cashoutAll()}>
               Claim All
             </a>
@@ -469,7 +501,7 @@ const DappFirstSection = () => {
           Estimated per day
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         {totalEstimatedDailyRewards} CRIOS
+         {roundedtotalEstimatedDailyRewards} CRIOS
         </h1>
 
   </div>
@@ -478,7 +510,7 @@ const DappFirstSection = () => {
           Total Pending Rewards
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-        {totalPendingRewards} CRIOS
+        {roundedtotalPendingRewards} CRIOS
     </h1>
   </div>
   <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover mb-56">
@@ -495,11 +527,18 @@ const DappFirstSection = () => {
           My Balance
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-         {formattedBalance} {symbol}
+         {roundedBalance} CRIOS
         </h1>
 
   </div>
+
                 </div>
+               
+                <a className="animate-pulse px-6 py-3 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave} onClick={openModal}>
+              Mint (+)
+            </a>
+           
                 </div>
               </div>
             </div>
