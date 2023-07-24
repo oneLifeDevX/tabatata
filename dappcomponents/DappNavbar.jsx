@@ -94,7 +94,7 @@ const DappNavbar = () => {
       {/* Barre de navigation principale */}
       <nav className="p-2 flex flex-row justify-between items-center bg-black">
         <Link href="/">
-          <a className="ml-12 p-4 font-bold text-2xl text-white">
+          <a className="ml-2 p-4 font-bold text-2xl text-white">
             Crios<span className="text-blue-600">Finance</span>
           </a>
         </Link>

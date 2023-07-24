@@ -376,15 +376,12 @@ const DappFirstSection = () => {
             My Stats
           </h1>
           <div className="flex flex-col min-h-screen">
-            <div data-aos="fade-left" className="border-greekv2 w-11/12 absolute md:left-28 my-8">
+            <div data-aos="fade-left" className="border-greekv2 w-11/12 lg:absolute md:left-28 my-8">
               <div className="p-4 lg:p-10 bg-black/[0.6] flex flex-col xl:flex-row w-full">
-                
-              
-              <div className="md:mb-4 sm:mb-4 p-4 lg:p-10 bg-black border w-8/12 sm:w-full">
+              <div className="md:mb-4 sm:mb-4 p-4 lg:p-10 bg-black border w-full">
   <div className="overflow-x-auto scrollbar-hide" style={{ height: "400px" }}>
-    <div className="flex flex-wrap">
-      <div className="w-full">
-        <div className="grid grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
+    
+        <div className="grid gap-4 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-2">
     {getartifactsByIds &&
       getartifactsByIds.map((artifacts, index) => (
         <div key={index} className="col-span-1">
@@ -425,8 +422,8 @@ const DappFirstSection = () => {
         </div>
       ))}
   </div>
-      </div>      
-    </div>
+          
+    
   </div>
   <div className="flex justify-between p-4">
 
