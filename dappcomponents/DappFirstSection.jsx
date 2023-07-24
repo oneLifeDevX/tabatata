@@ -193,7 +193,7 @@ const DappFirstSection = () => {
         const timestamp = Number(artifacts[i].artifact.lastProcessingTimestamp) + compoundDelayInSeconds;
         const currentTime = Date.now();
     
-        // Calculate remaining time
+        // Calculate remaining tim
         const remainingTimeInMillis = timestamp * 1000 - currentTime;
         const remainingSeconds = Math.ceil(remainingTimeInMillis / 1000);
     
@@ -311,7 +311,7 @@ const DappFirstSection = () => {
       
 <div className="justify-center items-center relative">
       <div className="w-full pt-8 lg:pt-32 pb-2 px-4 lg:px-10 text-white flex justify-center items-center flex-col "></div>
-      <div className={`flex justify-center items-center sm:ml-10 ml-0 sm:mt-0 mt-10`}>
+      <div className="flex justify-center items-center sm:ml-10 ml-0 sm:mt-0 mt-10">
         <div className="w-full px-10 text-white flex justify-center items-center pt-10 lg:pt-28">
           <div className="w-full lg:w-4/5 xl:w-3/5 flex flex-col gap-y-16 mb-16">
           <h1 className="flex-1 font-semibold text-[42px] text-white text-shadow-white leading-[75px] text-center items-center">
@@ -376,15 +376,15 @@ const DappFirstSection = () => {
             My Stats
           </h1>
           <div className="flex flex-col min-h-screen">
-            <div data-aos="fade-left" className="border-greekv2 w-11/12 absolute left-28 my-8 ">
+            <div data-aos="fade-left" className="border-greekv2 w-11/12 absolute md:left-28 my-8">
               <div className="p-4 lg:p-10 bg-black/[0.6] flex flex-col xl:flex-row w-full">
                 
               
-              <div className="p-4 lg:p-10 bg-black border w-8/12">
+              <div className="md:mb-4 sm:mb-4 p-4 lg:p-10 bg-black border w-8/12 sm:w-full">
   <div className="overflow-x-auto scrollbar-hide" style={{ height: "400px" }}>
     <div className="flex flex-wrap">
       <div className="w-full">
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2">
     {getartifactsByIds &&
       getartifactsByIds.map((artifacts, index) => (
         <div key={index} className="col-span-1">
@@ -394,7 +394,7 @@ const DappFirstSection = () => {
               className="w-full h-auto border"
               alt={`NFT ${artifacts.id}`}
             />
-            <div className="overlay absolute top-0 left-0 w-full h-auto bg-cover bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
+            <div className="overlay absolute top-0 left-0 right-0 bottom-0 h-auto bg-cover bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
               <h3 className="text-white text-xl font-bold mb-2">
                 {artifacts.artifact.name}
               </h3>
@@ -510,7 +510,7 @@ const DappFirstSection = () => {
           Total Pending Rewards
         </h1>
         <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
-        {roundedtotalPendingRewards} CRIOS
+        {roundedtotalPendingRewards}CRIOS
     </h1>
   </div>
   <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover mb-56">
@@ -531,15 +531,17 @@ const DappFirstSection = () => {
         </h1>
 
   </div>
-
-                </div>
-               
-                <a className="animate-pulse px-6 py-3 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+  <div className="absolute mt-80 ml-24 flex flex-col items-center">
+                <a className="animate-pulse px-28 py-8 font-bold border-2 3xl:text-2xl justify-center text-white border-white bg-button-inverse hover:bg-button absolute flex items-center hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave} onClick={openModal}>
               Mint (+)
             </a>
-           
+            </div>
                 </div>
+               
+                
+                </div>
+                
               </div>
             </div>
           </div>
