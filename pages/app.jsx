@@ -15,12 +15,12 @@ export default function App() {
 
 
   return (
-    <div className="flex flex-col w-full min-h-screen font-sans bg-bg2 bg-cover ">
+    <div className="flex flex-col w-full min-h-screen font-sans bg-bg2 bg-cover overflow-x-hidden">
       <CustomCursor />
       <header>
         <DappNavbar />
       </header>
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 lg:p-8">
 
 
         <DappFirstSection/>

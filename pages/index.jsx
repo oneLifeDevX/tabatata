@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-my_bg_image bg-cover bg-no-repeat bg-center relative">
+    <div className="min-h-screen bg-my_bg_image bg-cover bg-no-repeat bg-center relative overflow-x-hidden">
       <div className="relative top-0 left-0 w-full">
         <Navbar />
         <HeroSection />

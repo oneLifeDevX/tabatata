@@ -12,6 +12,12 @@ const DappNavbar = () => {
       
 
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handleToggleDrawer = () => {
+    setIsDrawerOpen((prevIsDrawerOpen) => !prevIsDrawerOpen);
+  };
+
 
   useEffect(() => {
     const sound = new Howl({
@@ -85,40 +91,74 @@ const DappNavbar = () => {
 
   return (
     <div>
+      {/* Barre de navigation principale */}
       <nav className="p-2 flex flex-row justify-between items-center bg-black">
         <Link href="/">
           <a className="ml-12 p-4 font-bold text-2xl text-white">
             Crios<span className="text-blue-600">Finance</span>
           </a>
         </Link>
-        <div className="flex items-center space-x-4"> 
-        <Link href="/">
-          <a className="ml-12 p-4 font-bold text-2xl text-white">
-            DOCS
-          </a>
-        </Link>
-        <Link href="/">
-          <a className="ml-12 p-4 font-bold text-2xl text-white">
-            CHARTS
-          </a>
+        <div className="flex items-center space-x-4 md:hidden">
+          {/* Bouton du menu hamburger */}
+          <button
+            className="p-4"
+            onClick={handleToggleDrawer}
+          >
+            <span className="text-white">&#9776;</span> {/* Icône du menu hamburger */}
+          </button>
+        </div>
+        <div className="hidden md:flex flex-1 items-center space-x-4 justify-center"> {/* Utilisation de la classe flex-1 pour centrer les éléments */}
+          <Link href="/">
+            <a className="p-4 font-bold text-2xl text-white">
+              DOCS
+            </a>
           </Link>
-        </div>  
-        <a
-                      href="https://app.prometheusprotocol.finance/invest"
-                      className="left-40 px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}>
-                      BUY CRIOS
-                    </a>
-        <ConnectButton/>
-        
-        
-        <div className="absolute right-72 mt-2">
-        <SwitchButton isOn={isPlaying} onToggle={handleTogglePlay} />
+          <Link href="/">
+            <a className="p-4 font-bold text-2xl text-white">
+              CHARTS
+            </a>
+          </Link>
+          <a
+            href="https://app.prometheusprotocol.finance/invest"
+            className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            BUY CRIOS
+          </a>
+          <ConnectButton />
+          {/* SwitchButton dans la barre de navigation principale */}
+          <SwitchButton isOn={isPlaying} onToggle={handleTogglePlay} />
         </div>
       </nav>
+
+      {/* Tiroir (Menu hamburger) */}
+      {isDrawerOpen && (
+        <div className="bg-black p-4 text-white md:hidden">
+          {/* Déplacer le SwitchButton ici */}
+          <div className="mb-4">
+            <SwitchButton isOn={isPlaying} onToggle={handleTogglePlay} />
+          </div>
+
+          <Link href="/">
+            <a className="block py-2">DOCS</a>
+          </Link>
+          <Link href="/">
+            <a className="block py-2">CHARTS</a>
+          </Link>
+          <a
+            href="https://app.prometheusprotocol.finance/invest"
+            className="block py-2"
+            onClick={handleClick}
+          >
+            BUY CRIOS
+          </a>
+          <ConnectButton />
+        </div>
+      )}
+
       <hr className="border-white" />
-      <CustomCursor/>
+      <CustomCursor />
     </div>
   );
 };
