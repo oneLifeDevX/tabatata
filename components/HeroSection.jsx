@@ -30,7 +30,7 @@ const handleClick = () => {
 }
 
   return (
-    <section id="home" className="flex flex-col pt-72 px-10 items-center">
+    <section id="home" className="flex flex-col lg:pt-72 px-10 items-center">
       <div className="flex-1 flex justify-center items-start flex-col xl:px-0 px-6 items-center">
         <div className="flex flex-row items-center py-[6px] px-4 rounded-[10px] mb-2"></div>
         <div className="flex flex-row justify-between items-center w-full">

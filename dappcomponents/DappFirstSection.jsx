@@ -173,6 +173,8 @@ const DappFirstSection = () => {
     function timeBeforeCompounds() {
       const remainingTimes = [];
       const currentTime = Math.floor(Date.now() / 1000); // Convertir en secondes
+
+      if (getArtifactIdsOf) {
       for (let i = 0; i < getArtifactIdsOf.length; i++) {
         const timestamp = Number(getartifactsByIds[i].artifact.lastProcessingTimestamp) + compoundDelayInSeconds;
     
@@ -182,6 +184,7 @@ const DappFirstSection = () => {
     
         remainingTimes.push(formattedRemainingTime);
       }
+    }
       return remainingTimes;
     }
   
@@ -312,9 +315,9 @@ const DappFirstSection = () => {
 <div className="justify-center items-center relative">
       <div className="w-full pt-8 lg:pt-32 pb-2 px-4 lg:px-10 text-white flex justify-center items-center flex-col "></div>
       <div className="flex justify-center items-center sm:ml-10 ml-0 sm:mt-0 mt-10">
-        <div className="w-full px-10 text-white flex justify-center items-center pt-10 lg:pt-28">
-          <div className="w-full lg:w-4/5 xl:w-3/5 flex flex-col gap-y-16 mb-16">
-          <h1 className="flex-1 font-semibold text-[42px] text-white text-shadow-white leading-[75px] text-center items-center">
+      <div className="w-full px-10 text-white flex justify-center items-center pt-10 lg:pt-28">
+        <div className="w-full lg:w-4/5 xl:w-3/5 flex flex-col gap-y-16 mb-16">
+        <h1 className="flex-1 font-semibold text-[42px] text-white text-shadow-white leading-[75px] text-center items-center">
             Overview
           </h1>
           <div data-aos="fade-right" className="border-greek 3xl:mb-8 text-center xl:text-left">
@@ -376,12 +379,12 @@ const DappFirstSection = () => {
             My Stats
           </h1>
           <div className="flex flex-col min-h-screen">
-            <div data-aos="fade-left" className="border-greekv2 w-11/12 lg:absolute md:left-28 my-8">
-              <div className="p-4 lg:p-10 bg-black/[0.6] flex flex-col xl:flex-row w-full">
-              <div className="md:mb-4 sm:mb-4 p-4 lg:p-10 bg-black border w-full">
+          <div data-aos="fade-left" className="border-greek sm:w-11/12 lg:w-11/12 lg:absolute left-28 mx-auto my-8">
+  <div className="p-4 lg:p-10 bg-black/[0.6] flex flex-col xl:flex-row w-full">
+    <div className="md:mb-4 sm:mb-4 p-4 lg:p-10 bg-black border w-full">
   <div className="overflow-x-auto scrollbar-hide" style={{ height: "400px" }}>
     
-        <div className="grid gap-4 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-2">
+        <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-2 md:grid-cols-2">
     {getartifactsByIds &&
       getartifactsByIds.map((artifacts, index) => (
         <div key={index} className="col-span-1">
@@ -425,7 +428,7 @@ const DappFirstSection = () => {
           
     
   </div>
-  <div className="flex justify-between p-4">
+  <div className="flex justify-center lg:justify-between p-4">
 
             <Modal
   isOpen={isModalOpen}
@@ -482,54 +485,54 @@ const DappFirstSection = () => {
 </div>
   </form>
 </Modal>
-            <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+            <a className="lg:ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white hover:bg-button lg:flex lg:flex-row lg:flex-between lg:gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave} onClick={() => compoundAllNoFees()}>
               Compound All
             </a>
-            <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+            <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button lg:flex lg:flex-row lg:flex-between lg:gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave} onClick={() => cashoutAll()}>
               Claim All
             </a>
   </div>
   </div>
-              <div className="ml-4 grid gap-4 grid-cols-2">
-              <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
-  <h1 className="font-bold text-[20px] text-white leading-[15px] w-full text-shadow-white text-center items-center">
+  <div className="mt-4 lg:ml-4 grid gap-4 lg:grid-cols-2">
+    <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
+  <h1 className="font-bold lg:text-[20px] text-white lg:leading-[15px] w-full text-shadow-white text-center items-center">
           Estimated per day
         </h1>
-        <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
+        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[45px] w-full text-shadow-white text-center items-center">
          {roundedtotalEstimatedDailyRewards} CRIOS
         </h1>
 
   </div>
   <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
-    <h1 className="font-bold text-[20px] text-white leading-[15px] w-full text-shadow-white text-center items-center">
+    <h1 className="font-bold lg:text-[20px] text-white lg:leading-[15px] w-full text-shadow-white text-center items-center">
           Total Pending Rewards
         </h1>
-        <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
+        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[45px] w-full text-shadow-white text-center items-center">
         {roundedtotalPendingRewards}CRIOS
     </h1>
   </div>
-  <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover mb-56">
-  <h1 className="font-bold text-[20px] text-white leading-[15px] w-full text-shadow-white text-center items-center">
+  <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover lg:mb-56">
+  <h1 className="font-bold lg:text-[20px] text-white lg:leading-[15px] w-full text-shadow-white text-center items-center">
           Time left before compound all
         </h1>
-        <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
+        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[45px] w-full text-shadow-white text-center items-center">
         {formatSeconds(maxTimeBeforeCompound)}
         </h1>
 
   </div>
   <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover">
-  <h1 className="font-bold text-[20px] text-white leading-[15px] w-full text-shadow-white text-center items-center">
+  <h1 className="font-bold lg:text-[20px] text-white lg:leading-[15px] w-full text-shadow-white text-center items-center">
           My Balance
         </h1>
-        <h1 className="font-bold text-[20px] text-white leading-[45px] w-full text-shadow-white text-center items-center">
+        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[45px] w-full text-shadow-white text-center items-center">
          {roundedBalance} CRIOS
         </h1>
 
   </div>
-  <div className="absolute mt-80 ml-24 flex flex-col items-center">
-                <a className="animate-pulse px-28 py-8 font-bold border-2 3xl:text-2xl justify-center text-white border-white bg-button-inverse hover:bg-button absolute flex items-center hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+  <div className="lg:absolute lg:mt-80 lg:ml-24 lg:flex lg:flex-col items-center">
+                <a className="animate-pulse lg:px-28 py-8 font-bold border-2 3xl:text-2xl justify-center text-white border-white bg-button-inverse hover:bg-button absolute flex items-center hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave} onClick={openModal}>
               Mint (+)
             </a>

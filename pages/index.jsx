@@ -27,7 +27,6 @@ export default function Home() {
         <Navbar />
         <HeroSection />
       </div>
-      {/* <canvas id="gradient-canvas" data-js-darken-top data-transition-in /> */}
       <div className="w-full h-16 bg-gradient-to-b from-black via-blue-700 to-black opacity-50"></div>
       <CTA />
       <div className="px-6 flex justify-center items-center">
