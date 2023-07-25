@@ -500,7 +500,7 @@ const DappFirstSection = () => {
   <h1 className="font-bold lg:text-[20px] text-white lg:leading-[15px] w-full text-shadow-white text-center items-center">
           Estimated per day
         </h1>
-        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[45px] w-full text-shadow-white text-center items-center">
+        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[30px] w-full text-shadow-white text-center items-center">
          {roundedtotalEstimatedDailyRewards} CRIOS
         </h1>
 
@@ -509,15 +509,15 @@ const DappFirstSection = () => {
     <h1 className="font-bold lg:text-[20px] text-white lg:leading-[15px] w-full text-shadow-white text-center items-center">
           Total Pending Rewards
         </h1>
-        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[45px] w-full text-shadow-white text-center items-center">
-        {roundedtotalPendingRewards}CRIOS
+        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[30px] w-full text-shadow-white text-center items-center">
+        {roundedtotalPendingRewards} CRIOS
     </h1>
   </div>
   <div className="flex-1 h-28 bg-lueur-wide bg-black bg-opacity-85 border-[1.5px] p-5 lueur-hover lg:mb-56">
   <h1 className="font-bold lg:text-[20px] text-white lg:leading-[15px] w-full text-shadow-white text-center items-center">
           Time left before compound all
         </h1>
-        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[45px] w-full text-shadow-white text-center items-center">
+        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[30px] w-full text-shadow-white text-center items-center">
         {formatSeconds(maxTimeBeforeCompound)}
         </h1>
 
@@ -526,7 +526,7 @@ const DappFirstSection = () => {
   <h1 className="font-bold lg:text-[20px] text-white lg:leading-[15px] w-full text-shadow-white text-center items-center">
           My Balance
         </h1>
-        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[45px] w-full text-shadow-white text-center items-center">
+        <h1 className="font-bold lg:text-[20px] text-white lg:leading-[30px] w-full text-shadow-white text-center items-center">
          {roundedBalance} CRIOS
         </h1>
 
