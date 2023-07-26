@@ -174,7 +174,7 @@ const DappFirstSection = () => {
       const remainingTimes = [];
       const currentTime = Math.floor(Date.now() / 1000); // Convertir en secondes
 
-      if (getArtifactIdsOf) {
+      if (getArtifactIdsOf > 0) {
       for (let i = 0; i < getArtifactIdsOf.length; i++) {
         const timestamp = Number(getartifactsByIds[i].artifact.lastProcessingTimestamp) + compoundDelayInSeconds;
     
