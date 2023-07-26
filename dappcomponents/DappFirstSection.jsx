@@ -7,8 +7,8 @@ import "aos/dist/aos.css";
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { Howl, Howler } from 'howler';
-import contractABI from "../constants/data.json";
-import tokenABI from "../constants/tokenabi.json";
+import contractABI from "../constants/manager.json";
+import tokenABI from "../constants/token.json";
 import { UseContractReadConfig, UseContractWriteConfig, UsePrepareContractWriteConfig, useContractRead,  useAccount,
   useConnect,
   useContract, useSigner, usePrepareContractWrite, useContractWrite} from "wagmi";
@@ -28,31 +28,31 @@ const DappFirstSection = () => {
 
   const {address, isConnecting, isDisconected} = useAccount();
   const { data: totalSupply } = useContractRead({
-    address: "0xc3FC8B222a22CE10d8161b457dE4B1AeeA748350",
+    address: "0x0dFc9A4ca062970CFb81FfEfAc7612DAe79f2D63",
     abi: tokenABI.abi,
     functionName: 'totalSupply',
   })
 
   const { data: totalSupplyNFT } = useContractRead({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'totalSupply',
   })
 
   const { data: totalValueLocked } = useContractRead({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'totalValueLocked',
   })
 
   const { data: getBurnedFromServiceFees } = useContractRead({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'getBurnedFromServiceFees',
   })
 
   const { data: calculateTotalDailyEmission } = useContractRead({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'calculateTotalDailyEmission',
   })
@@ -60,14 +60,14 @@ const DappFirstSection = () => {
 
 
   const { data: balanceOf, isLoading, isSuccess: useBalanceOf } = useContractRead({
-    address: "0xc3FC8B222a22CE10d8161b457dE4B1AeeA748350",
+    address: "0x0dFc9A4ca062970CFb81FfEfAc7612DAe79f2D63",
     abi: tokenABI.abi,
     functionName: 'balanceOf',
     args: [address],
   })
 
   const { data: getArtifactIdsOf } = useContractRead({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'getArtifactIdsOf',
     args: [address],
@@ -77,7 +77,7 @@ const DappFirstSection = () => {
 
   
   const { data: getartifactsByIds } = useContractRead({
-      address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+      address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
       abi: contractABI.abi,
       functionName: 'getartifactsByIds',
       args: [artifactIds],
@@ -89,46 +89,46 @@ const DappFirstSection = () => {
 
 
   const { data: compoundDelay, isSuccess: compoundOk } = useContractRead({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'compoundDelay',
   })
 
   const { data: symbol } = useContractRead({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'symbol',
   })
 
   const {data ,write } = useContractWrite({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'createArtifactWithTokens',
     args: [],
   });
 
   const {data: compoundRewardAll ,write: compoundAllNoFees } = useContractWrite({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'compoundAllNoFees',
     args: [],
   });
 
-  const {data: compoundReward ,write: compoundRewardNoFees } = useContractWrite({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+  const {data: compoundRewards ,write: compoundReward } = useContractWrite({
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
-    functionName: 'compoundRewardNoFees',
+    functionName: 'compoundReward',
     args: [],
   });
 
   const {data: cashoutAllNoFees ,write: cashoutAll } = useContractWrite({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'cashoutAllNoFees',
   });
 
   const {data: cashoutRewardNoFees ,write: cashout } = useContractWrite({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
     functionName: 'cashoutRewardNoFees',
     args: [],
@@ -169,23 +169,19 @@ const DappFirstSection = () => {
     ? new Date(compoundDelayInSeconds * 1000).toISOString().substr(11, 8)
     : "";
 
-    
-    function timeBeforeCompounds() {
-      const remainingTimes = [];
-      const currentTime = Math.floor(Date.now() / 1000); // Convertir en secondes
+    const [remainingTimes, setRemainingTimes] = useState([]);
 
-      if (getArtifactIdsOf) {
-      for (let i = 0; i < getArtifactIdsOf.length; i++) {
-        const timestamp = Number(getartifactsByIds[i].artifact.lastProcessingTimestamp) + compoundDelayInSeconds;
+    function timeBeforeCompounds() {
+      const currentTime = Math.floor(Date.now() / 1000); // Convertir en secondes
     
+      const updatedRemainingTimes = artifacts.map((artifacts) => {
+        const timestamp = Number(artifacts.artifact.lastProcessingTimestamp) + compoundDelayInSeconds;
         // Calculate remaining time
         const remainingSeconds = timestamp - currentTime;
-        const formattedRemainingTime = formatSeconds(Math.max(remainingSeconds, 0)); // Assurer une valeur minimale de 0
+        return formatSeconds(Math.max(remainingSeconds, 0)); // Assurer une valeur minimale de 0
+      });
     
-        remainingTimes.push(formattedRemainingTime);
-      }
-    }
-      return remainingTimes;
+      return updatedRemainingTimes;
     }
   
     
@@ -242,18 +238,6 @@ const DappFirstSection = () => {
     
     const totalEstimatedDailyRewards = calculateEstimatedDailyRewards(); // Appel de la nouvelle fonction pour obtenir le total des "Pending Rewards"
     const roundedtotalEstimatedDailyRewards = Number(totalEstimatedDailyRewards).toFixed(2);
-    
-
-    
-  
-
-  const { config } = usePrepareContractWrite({
-    address: "0x9f3a7ef84C22100049D75A018303c8f419B5EBD1",
-    abi: contractABI.abi,
-    functionName: "pause"
-  })
-
-  const { data: useContractWriteData } = useContractWrite(config)
 
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -285,15 +269,18 @@ const DappFirstSection = () => {
       AOS.init();
     }
     
-    const interval = setInterval(() => {
-      const remainingTime = timeBeforeCompounds();
-      setRemainingTime(remainingTime);
-    }, 1000);
 
-    return () => clearInterval(interval);
+    if (useConnect) {
+      const interval = setInterval(() => {
+        const remainingTimes = timeBeforeCompounds();
+        setRemainingTimes(remainingTimes);
+      }, 1000);
   
-    
+      return () => clearInterval(interval);
+    }
   }, [getArtifactIdsOf]);
+
+  
 
   const hoversound = new Howl({
     src: ['button.mp3'],
@@ -385,45 +372,63 @@ const DappFirstSection = () => {
   <div className="overflow-x-auto scrollbar-hide" style={{ height: "400px" }}>
     
         <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-2 md:grid-cols-2">
-    {getartifactsByIds &&
-      getartifactsByIds.map((artifacts, index) => (
-        <div key={index} className="col-span-1">
-          <div className="relative">
-            <img
-              src={`image-${artifacts.id}.png`}
-              className="w-full h-auto border"
-              alt={`NFT ${artifacts.id}`}
-            />
-            <div className="overlay absolute top-0 left-0 right-0 bottom-0 h-auto bg-cover bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
-              <h3 className="text-white text-xl font-bold mb-2">
-                {artifacts.artifact.name}
-              </h3>
-              <p className="text-white mb-2">Pending Rewards : {artifacts.pendingRewards ? parseFloat(utils.fromWei(artifacts.pendingRewards.toString(), 'ether')).toFixed(2) : ''}</p>
-              <p className="text-white mb-2">Compound left: 2</p>
-              <p className="text-white mb-2">Token Locked: {artifacts.artifact.artifactValue ? parseFloat(utils.fromWei(artifacts.artifact.artifactValue.toString(), 'ether')).toFixed(2) : ''}</p>
-              <p>{timeBeforeCompounds()[index]}</p>
-              
-              <a
-                
-                className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onClick={() => cashout({ args: [artifacts.id]})}
-              >
-                Claim
-              </a>
-              <a
-                className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onClick={() => compoundRewardNoFees({ args: [artifacts.id]})}
-              >
-                Compound
-              </a>
-            </div>
+        {getartifactsByIds &&
+  getartifactsByIds.map((artifacts, index) => {
+    // Déterminer quelle image afficher en fonction de la valeur de rewardMult
+    let imageSource;
+    if (artifacts.artifact.rewardMult < 5000) {
+      imageSource = 'https://gateway.pinata.cloud/ipfs/QmQdFXY5abL8kfPJu7UBhPs5baAgNEBiFPocKnN4UYUUaT/zeus.jpg';
+    } else {
+      imageSource = 'https://gateway.pinata.cloud/ipfs/QmQdFXY5abL8kfPJu7UBhPs5baAgNEBiFPocKnN4UYUUaT/poseidon.jpg';
+    }
+
+    return (
+      <div key={index} className="col-span-1">
+        <div className="relative">
+          {/* Utilisation de l'imageSource en tant que source de l'image */}
+          <img src={imageSource} className="w-full h-auto border" alt={`NFT ${artifacts.id}`} />
+
+          <div className="overlay absolute top-0 left-0 right-0 bottom-0 h-auto bg-cover bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
+            <h3 className="text-white text-xl font-bold mb-2">
+              {artifacts.artifact.name}
+            </h3>
+            <p className="text-white mb-2">
+              Pending Rewards :{' '}
+              {artifacts.pendingRewards
+                ? parseFloat(utils.fromWei(artifacts.pendingRewards.toString(), 'ether')).toFixed(2)
+                : ''}
+            </p>
+            <p className="text-white mb-2">Compound left: 2</p>
+            <p className="text-white mb-2">
+              Token Locked:{' '}
+              {artifacts.artifact.artifactValue
+                ? parseFloat(utils.fromWei(artifacts.artifact.artifactValue.toString(), 'ether')).toFixed(2)
+                : ''}
+            </p>
+            <p>{remainingTimes[index]}</p>
+
+            <a
+              className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => cashout({ args: [artifacts.id] })}
+            >
+              Claim
+            </a>
+            <a
+              className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => compoundReward({ args: [artifacts.id] })}
+            >
+              Compound
+            </a>
           </div>
         </div>
-      ))}
+      </div>
+    );
+  })}
+
   </div>
           
     
@@ -459,29 +464,29 @@ const DappFirstSection = () => {
     onChange={(e) => setTokenAmount(e.target.value)}
   />
   <div className="inline-flex flex-col">
-    <button
-      type="button"
+    <a
+      
       className="ml-1 mt-2 px-2 py-1 font-bold border-2 text-black text-xs bg-gray-100 hover:bg-gray-200"
       onClick={() => handleButtonClick('42001')}
     >
       Min
-    </button>
-    <button
-    type="button"
+    </a>
+    <a
+ 
       className="ml-1 mt-2 px-2 py-1 font-bold border-2 text-black text-xs bg-gray-100 hover:bg-gray-200"
       onClick={() => handleButtonClick('MAX_VALUE')}
     >
       Max
-    </button>
+    </a>
   </div>
 </div>
     </label>
     <br />
     <div className="grid grid-cols-2 gap-4">
-    <button type="button" className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave} onClick={() => write({ args: [nftName, tokenAmount*10**18]})}>Mint (+)</button>
-    <button className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave} onClick={closeModal}>Close</button>
+    <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave} onClick={() => write({ args: [nftName, tokenAmount*10**18]})}>Mint (+)</a>
+    <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave} onClick={closeModal}>Close</a>
 </div>
   </form>
 </Modal>
