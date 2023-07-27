@@ -100,6 +100,9 @@ const DappFirstSection = () => {
     functionName: 'symbol',
   })
 
+
+ 
+
   const {data ,write } = useContractWrite({
     address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
     abi: contractABI.abi,
@@ -243,7 +246,44 @@ const DappFirstSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [nftName, setNftName] = useState('');
   const [tokenAmount, setTokenAmount] = useState('');
+  const [nameError, setNameError] = useState("");
+
+
+  const { data: isNameAvailable } = useContractRead({
+    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    abi: contractABI.abi,
+    functionName: 'isNameAvailable',
+    args: [address, nftName],
+  })
+
+  const handleMint = async () => {
+    // On suppose que `name` est le nom entré par l'utilisateur dans l'input du Modal
+    if (!nftName) {
+      alert("Please enter Name.");
+      return;
+    }
   
+    // Vérifier si le nom est disponible
+    if (isNameAvailable) {
+      try {
+        // Appel de la constante `write` pour créer l'NFT avec le nom donné
+        await write({ args: [nftName, tokenAmount * 10**18] });
+        // Fermer le Modal ou effectuer d'autres actions souhaitées suite à la création réussie de l'NFT
+        console.log(isNameAvailable);
+        console.log(isNameAvailable.nftName)
+      } catch (error) {
+        // Gérer toute erreur survenue pendant le processus de création de l'NFT
+        console.error("Error :", error);
+        // Afficher un message d'erreur à l'utilisateur s'il y a eu un problème avec la création de l'NFT
+        alert("An error occurred while creating the NFT. Please try again later.");
+      }
+    } else {
+      // Afficher un message d'erreur si le nom n'est pas disponible
+      alert("The name is already in use. Please choose a different name.");
+    }
+  };
+  
+
 
   const openModal = (e) => {
     e.preventDefault();
@@ -268,7 +308,6 @@ const DappFirstSection = () => {
     if (typeof window !== 'undefined') {
       AOS.init();
     }
-    
 
     if (useConnect) {
       const interval = setInterval(() => {
@@ -278,7 +317,10 @@ const DappFirstSection = () => {
   
       return () => clearInterval(interval);
     }
+    
+  
   }, [getArtifactIdsOf]);
+
 
   
 
@@ -443,11 +485,12 @@ const DappFirstSection = () => {
   overlayClassName="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50"
 >
   <h2 className='text-white'>NFT Information</h2>
+  {nameError && <p className="text-red-500">{nameError}</p>}
   <form>
-    <label className='mb-6 text-white'>
+    <label className="mb-6 text-white">
       NFT Name:
       <input
-        className='flex opacity-75 text-black'
+        className="flex opacity-75 text-black"
         type="text"
         value={nftName}
         onChange={(e) => setNftName(e.target.value)}
@@ -484,7 +527,7 @@ const DappFirstSection = () => {
     <br />
     <div className="grid grid-cols-2 gap-4">
     <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave} onClick={() => write({ args: [nftName, tokenAmount*10**18]})}>Mint (+)</a>
+                      onMouseLeave={handleMouseLeave} onClick={handleMint}>Mint (+)</a>
     <a className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"  onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave} onClick={closeModal}>Close</a>
 </div>
