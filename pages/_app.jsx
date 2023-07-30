@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import '@rainbow-me/rainbowkit/styles.css';
 
 
-
 import {
   getDefaultWallets,
   RainbowKitProvider,
@@ -16,42 +15,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import Head from "next/head";
 
-// const myCustomTheme = {
-//   colors: {
-//     accentColor: 'blue',
-//     accentColorForeground: 'white',
-//     actionButtonBorder: 'red',
-//     actionButtonBorderMobile: 'purple',
-//     actionButtonSecondaryBackground: 'green',
-//     closeButton: 'pink',
-//     closeButtonBackground: 'black',
-//     connectButtonBackground: 'blue',
-//     connectButtonBackgroundError: 'red',
-//     connectButtonInnerBackground: 'red',
-//     connectButtonText: 'red',
-//     connectButtonTextError: 'red',
-//     connectionIndicator: 'red',
-//     downloadBottomCardBackground: 'red',
-//     downloadTopCardBackground: 'red',
-//     error: '...',
-//     generalBorder: 'red',
-//     generalBorderDim: 'red',
-//     menuItemBackground: 'red',
-//     modalBackdrop: '...',
-//     modalBackground: 'red',
-//     modalBorder: '...',
-//     modalText: '...',
-//     modalTextDim: '...',
-//     modalTextSecondary: '...',
-//     profileAction: '...',
-//     profileActionHover: '...',
-//     profileForeground: '...',
-//     selectedOptionBorder: '...',
-//     standby: '...'
-//   },
 
-//   // Other style modifications
-// };
 
 const { chains, publicClient } = configureChains(
   [arbitrumGoerli],
@@ -92,7 +56,6 @@ function MyApp({ Component, pageProps }) {
       
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider  chains={chains}>
-        {/* theme={myCustomTheme} */}
         <Component {...pageProps} />
         </RainbowKitProvider>
         </WagmiConfig>

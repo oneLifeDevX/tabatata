@@ -424,16 +424,24 @@ const DappFirstSection = () => {
     // Déterminer quelle image afficher en fonction de la valeur de rewardMult
     let imageSource;
     if (artifacts.artifact.rewardMult < 5000) {
-      imageSource = 'https://gateway.pinata.cloud/ipfs/QmQdFXY5abL8kfPJu7UBhPs5baAgNEBiFPocKnN4UYUUaT/zeus.jpg';
+      imageSource = 'https://gateway.pinata.cloud/ipfs/QmaUZoxcNHpaXDxkNi5SkvTBKnvJ27vGeQ96F7qThVEHco/Tier1.png';
+    } else if (artifacts.artifact.rewardMult < 11000) {
+      imageSource = 'https://gateway.pinata.cloud/ipfs/QmaUZoxcNHpaXDxkNi5SkvTBKnvJ27vGeQ96F7qThVEHco/Tier2.png';
+    } else if (artifacts.artifact.rewardMult < 19000) {
+      imageSource = 'https://gateway.pinata.cloud/ipfs/QmaUZoxcNHpaXDxkNi5SkvTBKnvJ27vGeQ96F7qThVEHco/Tier3.png';
+    } else if (artifacts.artifact.rewardMult < 32000) {
+      imageSource = 'https://gateway.pinata.cloud/ipfs/QmaUZoxcNHpaXDxkNi5SkvTBKnvJ27vGeQ96F7qThVEHco/Tier4.png';
+    } else if (artifacts.artifact.rewardMult < 50000) {
+      imageSource = 'https://gateway.pinata.cloud/ipfs/QmaUZoxcNHpaXDxkNi5SkvTBKnvJ27vGeQ96F7qThVEHco/Tier5.png';
     } else {
-      imageSource = 'https://gateway.pinata.cloud/ipfs/QmQdFXY5abL8kfPJu7UBhPs5baAgNEBiFPocKnN4UYUUaT/poseidon.jpg';
+      imageSource = 'https://gateway.pinata.cloud/ipfs/QmaUZoxcNHpaXDxkNi5SkvTBKnvJ27vGeQ96F7qThVEHco/Tier6.png';
     }
 
     return (
       <div key={index} className="col-span-1">
         <div className="relative">
           {/* Utilisation de l'imageSource en tant que source de l'image */}
-          <img src={imageSource} className="w-full h-auto border" alt={`NFT ${artifacts.id}`} />
+          <img src={imageSource} className="w-full h-auto" alt={`NFT ${artifacts.id}`} />
 
           <div className="overlay absolute top-0 left-0 right-0 bottom-0 h-auto bg-cover bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col justify-center items-center">
             <h3 className="text-white text-xl font-bold mb-2">
@@ -445,7 +453,6 @@ const DappFirstSection = () => {
                 ? parseFloat(utils.fromWei(artifacts.pendingRewards.toString(), 'ether')).toFixed(2)
                 : ''}
             </p>
-            <p className="text-white mb-2">Compound left: 2</p>
             <p className="text-white mb-2">
               Token Locked:{' '}
               {artifacts.artifact.artifactValue
@@ -455,7 +462,7 @@ const DappFirstSection = () => {
             <p>{remainingTimes[index]}</p>
 
             <a
-              className="mb-2 ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+              className="mb-2 ml-4 md:px-2 md:py-1 lg:px-4 lg:py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onClick={() => cashout({ args: [artifacts.id] })}
@@ -463,7 +470,7 @@ const DappFirstSection = () => {
               Claim
             </a>
             <a
-              className="ml-4 px-4 py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+              className="ml-4 md:px-2 md:py-1 lg:px-4 lg:py-2 font-bold border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onClick={() => compoundReward({ args: [artifacts.id] })}

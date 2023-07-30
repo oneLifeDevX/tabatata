@@ -49,7 +49,7 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} - CRIOS - ALL RIGHT RESERVED
           </p>
           <a
-            href="https://docs.prometheusprotocol.finance/prometheus-documentation-v2/disclaimers"
+            href=""
             className="hover:underline text-blue-600"
           >
             DISCLAIMER

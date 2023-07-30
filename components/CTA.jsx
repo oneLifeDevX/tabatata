@@ -51,14 +51,14 @@ const CTA = () => {
                   </p>
                   <div className="flex flex-row gap-x-3 justify-center xl:justify-start">
                     <a
-                      href="https://docs.prometheusprotocol.finance/prometheus-documentation-v2/"
+                      href=""
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
                       READ DOCS
                     </a>
                     <a
-                      href="https://app.prometheusprotocol.finance/invest"
+                      href=""
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
@@ -68,9 +68,9 @@ const CTA = () => {
                 </div>
                 <div className="flex justify-center items-center w-full xl:w-1/3">
                   <img
-                    src="/busd.png"
+                    src="/coincrios.png"
                     alt="chart"
-                    className="mb-10 3xl:mb-20 max-w-full h-auto"
+                    className="max-w-[280px] h-auto"
                   />
                 </div>
               </div>
@@ -91,14 +91,14 @@ const CTA = () => {
                   </p>
                   <div className="flex flex-row gap-x-3 justify-center xl:justify-start">
                     <a
-                      href="https://docs.prometheusprotocol.finance/prometheus-documentation-v2/"
+                      href=""
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
                       READ DOCS
                     </a>
                     <a
-                      href="https://app.prometheusprotocol.finance"
+                      href=""
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
@@ -108,9 +108,9 @@ const CTA = () => {
                 </div>
                 <div className="flex justify-center items-center w-full xl:w-1/3">
                   <img
-                    src="/temple-island.png"
+                    src="/Tier1.png"
                     alt="temple"
-                    className="mb-10 3xl:mb-20 max-w-[300px] h-auto"
+                    className="mt-4 mb-5 3xl:mb-20 max-w-[240px] h-auto"
                   />
                 </div>
               </div>
@@ -130,26 +130,26 @@ const CTA = () => {
                     </p>
                   <div className="flex flex-row gap-x-3 justify-center xl:justify-start">
                     <a
-                      href="https://docs.prometheusprotocol.finance/prometheus-documentation-v2/"
+                      href=""
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
                       LEARN MORE
                     </a>
                     <a
-                      href="https://snapshot.org/#/prometheus-dao.eth"
+                      href=""
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
-                      SEE CURRENT VOTES
+                      VIEW ON MARKETPLACE
                     </a>
                   </div>
                 </div>
                 <div className="w-full xl:w-1/2 flex justify-center">
                   <img
-                    src="/tokens.png"
+                    src="/marketplace.png"
                     alt="tokens"
-                    className="max-w-[400px] h-auto"
+                    className="lg:ml-44 max-w-[350px] h-auto"
                   />
                 </div>
               </div>
