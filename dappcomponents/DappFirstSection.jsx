@@ -113,7 +113,7 @@ const DappFirstSection = () => {
   const {data: compoundRewardAll ,write: compoundAllNoFees } = useContractWrite({
     address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
-    functionName: 'compoundAllNoFees',
+    functionName: 'compoundAll',
     args: [],
   });
 
@@ -127,13 +127,13 @@ const DappFirstSection = () => {
   const {data: cashoutAllNoFees ,write: cashoutAll } = useContractWrite({
     address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
-    functionName: 'cashoutAllNoFees',
+    functionName: 'cashoutAll',
   });
 
   const {data: cashoutRewardNoFees ,write: cashout } = useContractWrite({
     address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
-    functionName: 'cashoutRewardNoFees',
+    functionName: 'cashoutReward',
     args: [],
   });
 
