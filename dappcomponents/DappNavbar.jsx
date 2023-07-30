@@ -19,6 +19,8 @@ const DappNavbar = () => {
   };
 
 
+
+
   useEffect(() => {
     const sound = new Howl({
       src: ['music.mp3'],
@@ -126,7 +128,9 @@ const DappNavbar = () => {
           >
             BUY CRIOS
           </a>
-          <ConnectButton />
+         
+            <ConnectButton />
+          
           {/* SwitchButton dans la barre de navigation principale */}
           <SwitchButton isOn={isPlaying} onToggle={handleTogglePlay} />
         </div>

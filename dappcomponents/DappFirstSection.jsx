@@ -28,31 +28,31 @@ const DappFirstSection = () => {
 
   const {address, isConnecting, isDisconected} = useAccount();
   const { data: totalSupply } = useContractRead({
-    address: "0x0dFc9A4ca062970CFb81FfEfAc7612DAe79f2D63",
+    address: "0xc4458D2ab486C630e645cB19e117c7b84EF5a6b7",
     abi: tokenABI.abi,
     functionName: 'totalSupply',
   })
 
   const { data: totalSupplyNFT } = useContractRead({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'totalSupply',
   })
 
   const { data: totalValueLocked } = useContractRead({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'totalValueLocked',
   })
 
   const { data: getBurnedFromServiceFees } = useContractRead({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'getBurnedFromServiceFees',
   })
 
   const { data: calculateTotalDailyEmission } = useContractRead({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'calculateTotalDailyEmission',
   })
@@ -60,14 +60,14 @@ const DappFirstSection = () => {
 
 
   const { data: balanceOf, isLoading, isSuccess: useBalanceOf } = useContractRead({
-    address: "0x0dFc9A4ca062970CFb81FfEfAc7612DAe79f2D63",
+    address: "0xc4458D2ab486C630e645cB19e117c7b84EF5a6b7",
     abi: tokenABI.abi,
     functionName: 'balanceOf',
     args: [address],
   })
 
   const { data: getArtifactIdsOf } = useContractRead({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'getArtifactIdsOf',
     args: [address],
@@ -77,7 +77,7 @@ const DappFirstSection = () => {
 
   
   const { data: getartifactsByIds } = useContractRead({
-      address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+      address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
       abi: contractABI.abi,
       functionName: 'getartifactsByIds',
       args: [artifactIds],
@@ -89,13 +89,13 @@ const DappFirstSection = () => {
 
 
   const { data: compoundDelay, isSuccess: compoundOk } = useContractRead({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'compoundDelay',
   })
 
   const { data: symbol } = useContractRead({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'symbol',
   })
@@ -104,34 +104,34 @@ const DappFirstSection = () => {
  
 
   const {data ,write } = useContractWrite({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'createArtifactWithTokens',
     args: [],
   });
 
   const {data: compoundRewardAll ,write: compoundAllNoFees } = useContractWrite({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'compoundAllNoFees',
     args: [],
   });
 
   const {data: compoundRewards ,write: compoundReward } = useContractWrite({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'compoundReward',
     args: [],
   });
 
   const {data: cashoutAllNoFees ,write: cashoutAll } = useContractWrite({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'cashoutAllNoFees',
   });
 
   const {data: cashoutRewardNoFees ,write: cashout } = useContractWrite({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'cashoutRewardNoFees',
     args: [],
@@ -250,14 +250,13 @@ const DappFirstSection = () => {
 
 
   const { data: isNameAvailable } = useContractRead({
-    address: "0x3Ad81C22E2Bc454268e50259E9E400b3AdB823B6",
+    address: "0x7C0152dbE44D6589E7f94E8D85cF8bAe14F62bE5",
     abi: contractABI.abi,
     functionName: 'isNameAvailable',
     args: [address, nftName],
   })
 
   const handleMint = async () => {
-    // On suppose que `name` est le nom entré par l'utilisateur dans l'input du Modal
     if (!nftName) {
       alert("Please enter Name.");
       return;
@@ -265,6 +264,12 @@ const DappFirstSection = () => {
   
     // Vérifier si le nom est disponible
     if (isNameAvailable) {
+      // Validate the Token Amount input
+      if (!tokenAmount || isNaN(tokenAmount) || tokenAmount <= 42000) {
+        alert("Invalid Token Amount. Please enter a valid amount greater than 42000.");
+        return;
+      }
+  
       try {
         // Appel de la constante `write` pour créer l'NFT avec le nom donné
         await write({ args: [nftName, tokenAmount * 10**18] });

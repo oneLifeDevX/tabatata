@@ -40,10 +40,10 @@ const CTA = () => {
               <div className="p-4 lg:p-10 bg-black/[0.8] bg-chart bg-card flex flex-col xl:flex-row">
                 <div className="w-full xl:w-2/3 xl:pr-16">
                   <h4 className="text-xl md:text-2xl mb-6 font-semibold tracking-widest">
-                    A DOUBLE BUSD DIVIDENDS SYSTEM
+                    EARN UP TO 10% DAILY 
                   </h4>
                   <p className="text-3xl font-bold mb-4 3xl:mb-12 3xl:text-5xl">
-                    We Reward You Monthly With BUSD
+                    We Reward You Daily In $CRIOS 
                   </p>
                   <p className="text-sm mb-10 3xl:mb-20 3xl:text-5xl">
                     Click on the button below to read the Docs and learn more
@@ -55,14 +55,14 @@ const CTA = () => {
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
-                      LEARN MORE
+                      READ DOCS
                     </a>
                     <a
                       href="https://app.prometheusprotocol.finance/invest"
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
-                      RECEIVE DIVIDENDS
+                      BUY $CRIOS
                     </a>
                   </div>
                 </div>
@@ -79,30 +79,30 @@ const CTA = () => {
               <div className="p-4 lg:p-10 bg-black/[0.8] bg-temple bg-card flex flex-col xl:flex-row">
                 <div className="w-full xl:w-2/3 xl:pr-16">
                   <h4 className="text-xl md:text-2xl mb-6 font-semibold tracking-widest">
-                    HOW TO RECEIVE THE SACRED FIRE
+                    MINT YOUR FIRST ARTIFACT
                   </h4>
                   <p className="text-3xl font-bold mb-4 3xl:mb-12 3xl:text-5xl">
-                    Start Receiving Your BUSD Dividends By Creating A Profitable
-                    Temple NOW!
+                    Start Receiving Your $CRIOS Dividends By Creating A Profitable
+                    Artifact NOW!
                   </p>
                   <p className="text-sm mb-10 3xl:mb-20 3xl:text-5xl">
                     Click on the button below to learn more about how to buy
-                    your temple.
+                    mint your artifact
                   </p>
                   <div className="flex flex-row gap-x-3 justify-center xl:justify-start">
-                    <a
-                      href="https://app.prometheusprotocol.finance"
-                      className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}>
-                      BUY YOUR TEMPLE
-                    </a>
                     <a
                       href="https://docs.prometheusprotocol.finance/prometheus-documentation-v2/"
                       className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}>
-                      LEARN MORE
+                      READ DOCS
+                    </a>
+                    <a
+                      href="https://app.prometheusprotocol.finance"
+                      className="px-4 py-2 font-bold tracking-[.2em] border-2 3xl:text-2xl text-white border-white bg-button-inverse hover:bg-button flex flex-row flex-between gap-4 items-center relative hover:before:absolute hover:before:w-full hover:before:h-full hover:before:top-0 hover:before:left-0 hover:bg-gray-500 bg-black bg-opacity-50"
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}>
+                      MINT YOUR ARTIFACT
                     </a>
                   </div>
                 </div>
@@ -120,16 +120,14 @@ const CTA = () => {
               <div className="p-4 lg:p-10 bg-black/[0.8] bg-tokens bg-card flex flex-col xl:flex-row items-center xl:items-start">
                 <div className="w-full xl:w-1/2 xl:pr-16">
                   <h4 className="text-xl md:text-2xl mb-6 font-semibold tracking-widest">
-                    YOU DECIDE THROUGH A GOVERNANCE DAO
+                    MARKETPLACE 
                   </h4>
                   <p className="text-3xl font-bold mb-4 3xl:mb-12 3xl:text-5xl">
-                    Receive Your Governance Tokens And Take Control Of The
-                    Protocol
+                   Sell Your Artifact On Secondary Marketplace
                   </p>
                   <p className="text-sm mb-10 3xl:mb-20 3xl:text-5xl">
-                    Click on the button below to learn more about our governance
-                    DAO.
-                  </p>
+                    Click on the button below to learn more about the marketplace.
+                    </p>
                   <div className="flex flex-row gap-x-3 justify-center xl:justify-start">
                     <a
                       href="https://docs.prometheusprotocol.finance/prometheus-documentation-v2/"

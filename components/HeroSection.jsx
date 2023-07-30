@@ -35,16 +35,14 @@ const handleClick = () => {
         <div className="flex flex-row items-center py-[6px] px-4 rounded-[10px] mb-2"></div>
         <div className="flex flex-row justify-between items-center w-full">
           <h1 className="flex-1 font-semibold text-[42px] text-white text-shadow-white leading-[75px] text-center items-center">
-            Crios Liquidity Protocol
+            Crios Finance
           </h1>
         </div>
         <h1 className="font-bold text-[42px] text-white leading-[75px] w-full text-shadow-white text-center items-center">
-          Lend, Borrow, Earn Interest
+          DaaS on Arbitrum with 2,450% APR
         </h1>
         <p className="font-bold text-white text-shadow-white text-[18px] max-w-[470px] mt-5 text-center items-center">
-          A decentralized lending and borrowing protocol. Lend DAI and earn
-          interest in CRIOS. Collaterlize ETH and borrow DAI in an
-          overcollaterlized manner.
+          Crios Finance is a fast and innovative DaaS on the Arbitrum Network, passive income up to 2,450% APR, NFTs, sustainability in your pocket. 
         </p>
       </div>
       <Link href="/app">
@@ -64,43 +62,14 @@ const handleClick = () => {
               We Bring The Inaccessible Within Your Reach
             </h3>
             <p className="py-2 3xl:text-6xl 3xl:py-8">
-              With the explosion in the number of DeFi protocols, it has become
-              very difficult for the average user to know where to get the best
-              return on investment.
+            Create your Artifacts starting with as little as 42,000 $CRIOS to earn lifetime high-yield $CRIOS token rewards.
             </p>
             <p className="py-2 3xl:text-6xl 3xl:py-8">
-              And outside the DeFi world, the best investment opportunities
-              (those that can yield 25, 30 or even 40% per month) are reserved
-              for a certain elite, because:
+            The generated yield typically fluctuates between 1.5% to 10% per day.
+             Currently, Crios Finance provides a minimum yield of 1.5% per day per Artifact.
+             The objective is to bring passive income to its holders through various methods, primarily focused on grouped staking and farming, but not limited to these. 
             </p>
-            <p className="py-2 3xl:text-6xl 3xl:py-8 pl-4 3xl:pl-14"></p>
-            <ul className="list-disc">
-              <li>The barrier to entry is high</li>
-              <li>Those opportunities are difficult to find</li>
-              <li>Or they are sometimes not even accessible to the public</li>
-            </ul>
-            <p className="py-2 3xl:text-6xl 3xl:py-8">
-              So, like Crios took the sacred fire from the gods to offer it to
-              humanity… we decided to act:
-            </p>
-            <p className="py-2 3xl:text-6xl 3xl:py-8">
-              We created a DaaS (DeFi as a Service) protocol that enables you to
-              compete with the big ones.
-            </p>
-            <p className="py-2 3xl:text-6xl 3xl:py-8">
-              Our experienced team does the work for you by selecting the best
-              investment products (some are not widely known).
-            </p>
-            <p className="py-2 3xl:text-6xl 3xl:py-8">
-              All you have to do is to approve (or reject) our investment
-              proposals and enjoy your passive BUSD dividends and native token
-              rewards.
-            </p>
-            <p className="py-2 3xl:text-6xl 3xl:py-8">
-              By pooling our investments, we can access confidential investment
-              products, achieve a high return on investment… and therefore,
-              provide you consistent passive income.
-            </p>
+  
           </div>
         </div>
         <div className="pt-20 lg:pb-28 w-3/5">
@@ -108,20 +77,20 @@ const handleClick = () => {
             <div className="border-2 step-box border-white p-4 3xl:p-10 text-center flex-1 bg-blue-800/[0.65]">
               <h4 className="mb-2 3xl:mb-8 text-xl 3xl:text-4xl">Step 1</h4>
               <p className="3xl:text-2xl">
-                You decide what we invest in though the governance DAO.
+                You buy $CRIOS token <a href="/"> here </a>
               </p>
               
             </div>
             <div className="border-2 step-box border-white p-4 3xl:p-10 text-center flex-1 bg-blue-700/[0.65]">
               <h4 className="mb-2 3xl:mb-8 text-xl 3xl:text-4xl">Step 2</h4>
               <p className="3xl:text-2xl">
-                We invest the treasury and we redistribute the profits.
+                You can mint your first Artifact, and lock an amount of $CRIOS inside.
               </p>
             </div>
             <div className="border-2 step-box border-white p-4 3xl:p-10 text-center flex-1 bg-blue-600/[0.65]">
               <h4 className="mb-2 3xl:mb-8 text-xl 3xl:text-4xl">Step 3</h4>
               <p className="3xl:text-2xl">
-                You enjoy your monthly BUSD dividends.
+                You can now obtain daily rewards on your artifacts ! Don't forget to compound to upgrade your rewards.
               </p>
             </div>
           </div>
